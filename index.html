@@ -132,7 +132,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="mr-2">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.371-.025-.52-.075-.15-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-12.244 5.69c-.485.123-1.235.195-1.895-.101-.659-.297-1.164-.735-1.832-1.351-.694-.644-.915-1.18-1.214-1.971C.17 14.83 0 13.62 0 12.401 0 9.15 2.462 6.5 5.474 6.5c1.488 0 2.847.578 3.865 1.548 1.017.97 1.673 2.377 1.673 3.969 0 1.593-.656 3.002-1.673 3.972-1.018.97-2.377 1.548-3.865 1.548-.457 0-.913-.061-1.339-.186m16.172-2.477c-.347 1.24-1.115 2.243-1.983 2.413-.51.103-1.163.082-1.735-.034-.566-.114-1.037-.363-1.456-.644-.67-.453-1.188-1.03-1.683-1.668-.934-1.19-1.653-2.805-1.753-4.387-.099-1.409.17-2.757.808-3.846.614-1.046 1.538-1.712 2.632-1.892.347-.059.694-.083 1.033-.083 1.412 0 2.631.745 3.374 2.043.744 1.298.658 2.962.163 3.938-.321.629-.867 1.112-1.178 1.428-.069.07-.119.119-.198.198-.099.099-.086.165-.025.273.092.165.372.533.545.798.173.263.39.613.425.892.034.282-.025.54-.223.773-.173.198-.397.322-.628.397-.231.075-.462.099-.694.115-.231.017-.462-.017-.693-.066-.272-.059-.669-.236-.991-.43-1.018-.615-1.76-1.587-2.275-2.696-.186-.397-.322-.81-.386-1.18-.066-.372-.069-.744.017-1.043.086-.299.281-.48.628-.562.347-.083.744-.034 1.115.182.371.215.644.562.913.913.231.298.413.562.562.745.149.182.248.298.347.314.099.016.198-.034.314-.132.694-.793 1.191-1.529 1.492-2.343.124-.413.198-.828.149-1.172-.05-.347-.249-.644-.562-.745-.314-.099-.725-.05-1.056.05-.333.098-.728.38-1.116.747-.413.397-.793.892-1.074 1.405-.281.513-.463.989-.595 1.441-.132.453-.231.944-.248 1.389-.016.446.05.896.198 1.274.148.38.41.813.736 1.21.661.795 1.519 1.439 2.44 1.869.426.198.862.347 1.306.413.446.066.894.05 1.31-.033.417-.083.808-.264 1.091-.628.297-.38.42-.843.347-1.272-.074-.513-.545-1.006-1.074-1.34l-.132-.083c-.083-.05-.132-.083-.182-.066-.05.016-.083.066-.099.132-.017.083-.05.165-.05.215 0 .05.033.099.066.116.033.016.083.033.116.016 1.156-.595 1.923-.397 2.242-.248.314.149.669.479.828.843z"/>
                 </svg>
-                Hubungi WhatsApp Support
+                Kirim Email ke WhatsApp Support
             </button>
         </form>
         
@@ -174,6 +174,7 @@
             
             const phoneNumber = document.getElementById('phoneNumber').value;
             const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
             
             // Validasi nomor telepon
             if (!/^\+[1-9]\d{1,14}$/.test(phoneNumber)) {
@@ -181,25 +182,21 @@
                 return;
             }
             
-            // Gunakan nomor telepon untuk menghubungi WhatsApp
-            const whatsappSupportNumber = '+14155238886';  // Nomor support WhatsApp
-            const messageText = `Halo, nomor WhatsApp saya ${phoneNumber} terkena banned. Mohon bantuan untuk proses pemulihan.
+            // Mengirim via email
+            const subject = `Permohonan Pemulihan Nomor WhatsApp Banned: ${phoneNumber}`;
+            const body = `Nomor WhatsApp yang terkena banned: ${phoneNumber}
             
-Detail masalah:
-${document.getElementById('message').value || 'Tidak ada detail tambahan yang diberikan'}`;
+Pesan dari pengguna:
+${message || 'Tidak ada detail tambahan yang diberikan'}
             
-            let whatsappUrl = `https://wa.me/${whatsappSupportNumber}?text=${encodeURIComponent(messageText)}`;
+Email untuk konfirmasi: ${email || 'Tidak disediakan'}`;
             
-            // Tambahkan email jika diisi
-            if (email) {
-                whatsappUrl += `%0D%0A%0D%0AEmail saya: ${encodeURIComponent(email)}`;
-            }
+            const mailtoLink = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Buka chat WhatsApp
-            window.open(whatsappUrl, '_blank');
+            window.open(mailtoLink, '_blank');
             
             // Tampilkan pesan sukses
-            alert('Kami mengarahkan Anda ke chat WhatsApp Support. Pesan Anda telah termasuk detail yang diberikan. Anda bisa menambahkan screenshot jika diperlukan.');
+            alert('Kami membuka aplikasi email untuk mengirim permohonan ke WhatsApp Support. Pastikan Anda melampirkan bukti pendukung seperti screenshot jika diperlukan.');
         });
     </script>
 </body>
